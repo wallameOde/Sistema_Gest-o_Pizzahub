@@ -14,13 +14,20 @@ void limpar_buffer() {
 typedef struct {
     char nome[50];
     float preco;
-    char ingredientes[MAX_INGREDIENTES][30];
-    int num_ingredientes;
     int id;
 } Pizza;
 
 Pizza cardapio[MAX_PIZZAS];
 int total_pizzas = 0;
+
+typedef struct{
+    int id_pedido;
+    Pizza pizza;
+    int quantidade;
+    float total;
+}Pedido;
+Pedido pedidos[MAX_PEDIDOS];
+int total_pedidos = 0;
 
 void iniciar_cardapio() {
 strcpy(cardapio[0].nome, "Margherita");
@@ -52,9 +59,45 @@ void mostrar_cardapio() {
 }
 
 void fazer_pedido() {
-    // Implementação da função
+    if(total_pedidos >= MAX_PEDIDOS){
+        printf("Limite de pedidos atingido./n");
+        return;
+    }
+    mostrar_cardapio();
+    int id_escolhido;
+    printf("Digite o ID da pizza que deseja pedir:");
+    if(scanf("%d", &id_escolhido) !=1){
+        limpar_buffer();
+        printf("Entrada invalida./n");
+        return;
+    }
+    limpar_buffer();
+    int i, encontrou = 0;
+    for( i = 0; 1 < total_pizzas; i++){
+        if(cardapio[i].id == id_escolhido){
+            encontrou = 1;
+            break;
+        }
+    }
+if(!encontrou){
+    printf("Pizza nao encontrada./n");
+    return;
 }
-
+int quantidade;
+printf("Digite a quantidade:");
+if(scanf("%d", &quantidade) !=1 || quantidade <= 0){
+    limpar_buffer();
+    printf("Quantidade invalida./n");
+    return;
+}
+limpar_buffer();
+pedidos[total_pedidos].id_pedido = total_pedidos + 1;
+pedidos[total_pedidos].pizza = cardapio[i];
+pedidos[total_pedidos].quantidade = quantidade;
+pedidos[total_pedidos].total = cardapio[i].preco * quantidade;
+total_pedidos++;
+printf("Pedido feito com sucesso! Total: R$ %.2f\n", pedidos[total_pedidos - 1].total);
+}
 void mostrar_pedidos() {
     // Implementação da função
 }
