@@ -22,4 +22,12 @@ RNF02 - Agilidade na busca (Desempenho): A recuperação do histórico do últim
  
 RNF04 - Prevenção de erro humano (Segurança de negócio): O sistema deve atuar de forma preventiva na interface, impedindo visualmente que o atendente venda um sabor cujo ingrediente principal esteja zerado.
  
+Metricas de sucesso:
 
+Como medir o sucesso do sistema agora que ele é focado apenas em atendimento.
+
+    Tempo de Cadastro de Novos Clientes: Cronometrar o tempo de preenchimento do formulário resumido (Meta: menos de 30 segundos).  
+
+    Tempo Médio de Atendimento (TMA): Medir a redução no tempo total de atendimento no balcão ou telefone após a implementação do histórico rápido.  
+
+    Tempo de Resposta do Banco de Dados: Tempo que o sistema leva para processar a busca do telefone digitado (Meta: < 1 segundo).
