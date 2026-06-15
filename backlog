@@ -1,9 +1,25 @@
-Atividade de logica de programação ( Em construção)
+Documento de Requisitos: Sistema de Pizzaria
+1. Requisitos Funcionais (RF)
+Módulo de Clientes
+RF01 - Cadastro unificado de clientes: O sistema deve permitir cadastrar clientes associando-os ao seu número de telefone
+ 
+RF02 - Verificação de registro existente: Ao digitar um número de telefone, o sistema deve buscar se ele já existe no banco de dados.
+ 
+RF03 - Cadastro expresso (Novo cliente): Caso o telefone digitado não seja encontrado, o sistema deve exibir um formulário simplificado contendo apenas: Nome, Telefone e Endereço principal.
 
 
-Requisitos funcionais :
-  Notificação de pedidos recebidos.
-  Cadastro usuario (nome,telefone).
-  Cadastro de tipos de pizza.
+RF04 - Recuperação de histórico: Caso o telefone digitado já exista, o sistema deve recuperar e exibir imediatamente o histórico do último pedido feito por aquele cliente.
+ 
+2. Requisitos Não Funcionais (RNF)
+Como o sistema deve se comportar (desempenho, experiência e usabilidade).
+RNF01 - Rapidez no cadastro (Desempenho/Usabilidade): A tela de cadastro de novos clientes deve ser minimalista e projetada de forma que o atendente consiga finalizar o preenchimento em, no máximo, 30 segundos.
 
-Requisitos não funcionais :
+
+RNF02 - Agilidade na busca (Desempenho): A recuperação do histórico do último cliente deve ser instantânea ("na hora") ao identificar um número existente, visando agilizar o atendimento no balcão ou telefone.
+
+
+ RNF03 - Automação de processos (Confiabilidade): A contagem e a baixa do estoque devem ser feitas internamente de forma 100% automatizada pelo software, eliminando a necessidade de contagem manual de fechamento no fim da noite.
+ 
+RNF04 - Prevenção de erro humano (Segurança de negócio): O sistema deve atuar de forma preventiva na interface, impedindo visualmente que o atendente venda um sabor cujo ingrediente principal esteja zerado.
+ 
+
