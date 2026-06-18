@@ -4,7 +4,7 @@
 
 #define MAX_PIZZAS 100
 #define MAX_PEDIDOS 100
-#define MAX_INGREDIENTES 5
+
 
 
 void limpar_buffer() {
@@ -60,7 +60,7 @@ void mostrar_cardapio() {
 
 void fazer_pedido() {
     if(total_pedidos >= MAX_PEDIDOS){
-        printf("Limite de pedidos atingido./n");
+        printf("Limite de pedidos atingido.\n");
         return;
     }
     mostrar_cardapio();
@@ -68,12 +68,12 @@ void fazer_pedido() {
     printf("Digite o ID da pizza que deseja pedir:");
     if(scanf("%d", &id_escolhido) !=1){
         limpar_buffer();
-        printf("Entrada invalida./n");
+        printf("Entrada invalida.\n");
         return;
     }
     limpar_buffer();
     int i, encontrou = 0;
-    for( i = 0; 1 < total_pizzas; i++){
+    for( i = 0; i < total_pizzas; i++){
         if(cardapio[i].id == id_escolhido){
             encontrou = 1;
             break;
@@ -99,9 +99,69 @@ total_pedidos++;
 printf("Pedido feito com sucesso! Total: R$ %.2f\n", pedidos[total_pedidos - 1].total);
 }
 void mostrar_pedidos() {
+   if(total_pedidos == 0){
+    printf("\nnenhum pedido registrado. \n");
+    return;
+   }
+   printf("\n==== Relatorio de pedidos. ====\n");
+   float valor_total = 0;
+   int i;
+   for(i = 0; i < total_pedidos; i++){
+     printf("Pedido #%d | Pizza: %-15s | Quantidade: %d | Total: R$ %.2f \n",
+     pedidos[i].id_pedido,
+   pedidos[i].pizza.nome,
+   pedidos[i].quantidade,
+   pedidos[i].total);
+   valor_total += pedidos[i].total;
+   }
+   printf("----------------------------- \n");
+   printf("valor geral: R$ %.2f\n", valor_total);
+  
+}
+void salvar_pedidos() {
+       if (total_pedidos == 0) {
+        printf("Nenhum pedido para salvar.\n");
+        return;
+    }
+
+    FILE *teste = fopen("pedidos.txt", "r");
+    int arquivo_novo = (teste == NULL);
+    if (teste) fclose(teste);
+
+    FILE *arquivo = fopen("pedidos.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir arquivo.\n");
+        return;
+    }
+
+    if (arquivo_novo) {
+        fprintf(arquivo, "%-10s %-20s %-12s %-18s %-10s\n",
+            "ID", "Pizza", "Quantidade", "Preco Unitario", "Total");
+        fprintf(arquivo, "%-10s %-20s %-12s %-18s %-10s\n",
+            "----------", "--------------------", "------------", "------------------", "----------");
+    }
+
+    int i;
+    float valor_total = 0;
+    for (i = 0; i < total_pedidos; i++) {
+        fprintf(arquivo, "%-10d %-20s %-12d R$%-16.2f R$%.2f\n",
+            pedidos[i].id_pedido,
+            pedidos[i].pizza.nome,
+            pedidos[i].quantidade,
+            pedidos[i].pizza.preco,
+            pedidos[i].total);
+        valor_total += pedidos[i].total;
+    }
+
+    fprintf(arquivo, "%-10s %-20s %-12s %-18s R$%.2f\n",
+        "", "", "", "Total Geral:", valor_total);
+
+    fclose(arquivo);
+    printf("Pedidos salvos em 'pedidos.txt'.\n");
+}
+void cadastro_cliente() {
     // Implementação da função
 }
-
 int main() {
     int opcao;
     iniciar_cardapio();
@@ -111,6 +171,8 @@ int main() {
         printf("1. Ver cardapio\n");
         printf("2. Fazer pedido\n");
         printf("3. Relatorio de Pedidos\n");
+        printf("4. Cadastrar cliente\n");
+        printf("5. Salvar pedidos \n");
         printf("0. Sair\n");
 
         if (scanf("%d", &opcao) != 1) {
@@ -127,6 +189,11 @@ int main() {
                 break;
             case 3:
                 mostrar_pedidos();
+                break;
+             case 4:
+                cadastro_cliente();
+            case 5:
+                salvar_pedidos();
                 break;
             case 0:
                 printf("Saindo...\n");
